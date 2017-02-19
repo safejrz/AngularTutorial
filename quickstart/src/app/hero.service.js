@@ -8,13 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
 var mock_heroes_1 = require('./mock-heroes');
+var core_1 = require('@angular/core');
 var HeroService = (function () {
     function HeroService() {
     }
     HeroService.prototype.getHeroes = function () {
         return Promise.resolve(mock_heroes_1.HEROES);
+    };
+    HeroService.prototype.getHeroesSlowly = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            // Simulate server latency with 2 second delay
+            setTimeout(function () { return resolve(_this.getHeroes()); }, 2000);
+        });
     };
     HeroService.prototype.getHero = function (id) {
         return this.getHeroes()
